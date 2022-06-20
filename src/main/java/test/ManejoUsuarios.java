@@ -1,31 +1,32 @@
 package test;
 
 import datos.Conexion;
-import datos.UsuarioJDBC;
-import domain.Usuario;
+import datos.UsuarioDaoJDBC;
+import domain.UsuarioDTO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ManejoUsuarios {
     public static void main(String[] args) {
-        UsuarioJDBC usuarioJdbc = new UsuarioJDBC();
+        UsuarioDaoJDBC usuarioDaoJdbc = new UsuarioDaoJDBC();
         
 /*        //Ejecutando el listado de usuarios
-        List<Usuario> usuarios = usuarioJdbc.select();
-        for(Usuario usuario: usuarios){
-            System.out.println("Usuario:" + usuario);
+        List<UsuarioDTO> usuarios = usuarioDaoJdbc.select();
+        for(UsuarioDTO usuario: usuarios){
+            System.out.println("UsuarioDTO:" + usuario);
         }
         
         //Insertamos un nuevo usuario
-//        Usuario usuario = new Usuario("carlos.juarez", "123");
-//        usuarioJdbc.insert(usuario);
+//        UsuarioDTO usuario = new UsuarioDTO("carlos.juarez", "123");
+//        usuarioDaoJdbc.insert(usuario);
 
         //Modificamos un usuario existente
-//        Usuario usuario = new Usuario(3, "carlos.juarez","456");
-//        usuarioJdbc.update(usuario);
+//        UsuarioDTO usuario = new UsuarioDTO(3, "carlos.juarez","456");
+//        usuarioDaoJdbc.update(usuario);
 
-        usuarioJdbc.delete(new Usuario(3));*/
+        usuarioDaoJdbc.delete(new UsuarioDTO(3));*/
 
         Connection conexion = null;
 
@@ -35,19 +36,12 @@ public class ManejoUsuarios {
                 conexion.setAutoCommit(false);
             }
 
-            UsuarioJDBC usuarioJDBC = new UsuarioJDBC(conexion);
+            UsuarioDaoJDBC usuarioDao = new UsuarioDaoJDBC(conexion);
 
-            Usuario cambioUsuario = new Usuario();
-            cambioUsuario.setId_usuario(2);
-            cambioUsuario.setUsername("rodolfosorry!");
-            cambioUsuario.setPassword("2022");
-            usuarioJDBC.update(cambioUsuario);
+            List<UsuarioDTO> usuarios = usuarioDao.select();
 
-            Usuario nuevoUsuario = new Usuario();
-            nuevoUsuario.setUsername("petrico");
-            //nuevoUsuario.setPassword("202688888888888888888888888888888888888888888888");
-            nuevoUsuario.setPassword("2022");
-            usuarioJDBC.insert(nuevoUsuario);
+            usuarios.forEach(System.out::println);
+
 
             conexion.commit();
             System.out.println("Se ha hecho el commit de la transaccion");
