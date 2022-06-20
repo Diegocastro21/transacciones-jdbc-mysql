@@ -1,92 +1,94 @@
 package datos;
 
-import domain.Persona;
+import domain.PersonaDTO;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PersonaJDBC {
+import static datos.Conexion.close;
+
+public class PersonaDaoJDBC implements  PersonaDao{
 
     private Connection conexionTransaccional;
 
-    private static final String SQL_SELECT = "SELECT id_persona, nombre, apellido, email, telefono FROM persona";
+    private static final String SQL_SELECT = "SELECT idpersona, nombre, apellido, email, telefono FROM persona";
     private static final String SQL_INSERT = "INSERT INTO persona(nombre, apellido, email, telefono) VALUES(?, ?, ?, ?)";
-    private static final String SQL_UPDATE = "UPDATE persona SET nombre=?, apellido=?, email=?, telefono=? WHERE id_persona = ?";
-    private static final String SQL_DELETE = "DELETE FROM persona WHERE id_persona=?";
+    private static final String SQL_UPDATE = "UPDATE persona SET nombre=?, apellido=?, email=?, telefono=? WHERE idpersona = ?";
+    private static final String SQL_DELETE = "DELETE FROM persona WHERE idpersona=?";
 
-    public PersonaJDBC() {
+    public PersonaDaoJDBC() {
 
     }
 
-    public PersonaJDBC(Connection conexionTransaccional) {
+    public PersonaDaoJDBC(Connection conexionTransaccional) {
         this.conexionTransaccional = conexionTransaccional;
     }
 
-    public List<Persona> select() throws SQLException {
+    public List<PersonaDTO> select() throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Persona persona = null;
-        List<Persona> personas = new ArrayList<Persona>();
+        PersonaDTO personaDTO = null;
+        List<PersonaDTO> personaDTOS = new ArrayList<PersonaDTO>();
 
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                int id_persona = rs.getInt("id_persona");
+                int id_persona = rs.getInt("idpersona");
                 String nombre = rs.getString("nombre");
                 String apellido = rs.getString("apellido");
                 String email = rs.getString("email");
                 String telefono = rs.getString("telefono");
 
-                persona = new Persona();
-                persona.setId_persona(id_persona);
-                persona.setNombre(nombre);
-                persona.setApellido(apellido);
-                persona.setEmail(email);
-                persona.setTelefono(telefono);
+                personaDTO = new PersonaDTO();
+                personaDTO.setId_persona(id_persona);
+                personaDTO.setNombre(nombre);
+                personaDTO.setApellido(apellido);
+                personaDTO.setEmail(email);
+                personaDTO.setTelefono(telefono);
 
-                personas.add(persona);
+                personaDTOS.add(personaDTO);
             }
         } finally {
-            Conexion.close(rs);
-            Conexion.close(stmt);
+            close(rs);
+            close(stmt);
             if (this.conexionTransaccional == null) {
-                Conexion.close(conn);
+                close(conn);
             }
 
         }
 
-        return personas;
+        return personaDTOS;
     }
 
-    public int insert(Persona persona) throws SQLException {
+    public int insert(PersonaDTO personaDTO) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
         try {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_INSERT);
-            stmt.setString(1, persona.getNombre());
-            stmt.setString(2, persona.getApellido());
-            stmt.setString(3, persona.getEmail());
-            stmt.setString(4, persona.getTelefono());
+            stmt.setString(1, personaDTO.getNombre());
+            stmt.setString(2, personaDTO.getApellido());
+            stmt.setString(3, personaDTO.getEmail());
+            stmt.setString(4, personaDTO.getTelefono());
 
             System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
         } finally {
-            Conexion.close(stmt);
+            close(stmt);
             if (this.conexionTransaccional == null) {
-                Conexion.close(conn);
+                close(conn);
             }
         }
 
         return rows;
     }
 
-    public int update(Persona persona) throws SQLException {
+    public int update(PersonaDTO personaDTO) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -95,26 +97,26 @@ public class PersonaJDBC {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             System.out.println("ejecutando query: " + SQL_UPDATE);
             stmt = conn.prepareStatement(SQL_UPDATE);
-            stmt.setString(1, persona.getNombre());
-            stmt.setString(2, persona.getApellido());
-            stmt.setString(3, persona.getEmail());
-            stmt.setString(4, persona.getTelefono());
-            stmt.setInt(5, persona.getId_persona());
+            stmt.setString(1, personaDTO.getNombre());
+            stmt.setString(2, personaDTO.getApellido());
+            stmt.setString(3, personaDTO.getEmail());
+            stmt.setString(4, personaDTO.getTelefono());
+            stmt.setInt(5, personaDTO.getId_persona());
 
             rows = stmt.executeUpdate();
             System.out.println("Registros actualizado:" + rows);
 
         } finally {
-            Conexion.close(stmt);
+            close(stmt);
             if (this.conexionTransaccional == null) {
-                Conexion.close(conn);
+                close(conn);
             }
         }
 
         return rows;
     }
 
-    public int delete(Persona persona) throws SQLException {
+    public int delete(PersonaDTO personaDTO) throws SQLException {
         Connection conn = null;
         PreparedStatement stmt = null;
         int rows = 0;
@@ -123,13 +125,13 @@ public class PersonaJDBC {
             conn = this.conexionTransaccional != null ? this.conexionTransaccional : Conexion.getConnection();
             System.out.println("Ejecutando query:" + SQL_DELETE);
             stmt = conn.prepareStatement(SQL_DELETE);
-            stmt.setInt(1, persona.getId_persona());
+            stmt.setInt(1, personaDTO.getId_persona());
             rows = stmt.executeUpdate();
             System.out.println("Registros eliminados:" + rows);
         } finally {
-            Conexion.close(stmt);
+            close(stmt);
             if (this.conexionTransaccional == null) {
-                Conexion.close(conn);
+                close(conn);
             }
         }
 

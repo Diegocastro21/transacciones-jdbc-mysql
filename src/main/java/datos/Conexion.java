@@ -5,7 +5,7 @@ import java.sql.*;
 public class Conexion {
     private static final String JDBC_URL = "jdbc:mysql://localhost/test?useSSL=false&serverTimezone=UTC";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASS = "Dcco2004";
+    private static final String JDBC_PASS = "admin";
     
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);

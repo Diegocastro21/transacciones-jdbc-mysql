@@ -1,14 +1,11 @@
 package test;
 
 import datos.Conexion;
-import datos.PersonaJDBC;
 import datos.UsuarioJDBC;
-import domain.Persona;
 import domain.Usuario;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ManejoUsuarios {
     public static void main(String[] args) {

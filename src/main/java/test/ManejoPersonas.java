@@ -1,9 +1,12 @@
 package test;
 
 import datos.Conexion;
-import datos.PersonaJDBC;
-import domain.Persona;
+import datos.PersonaDao;
+import datos.PersonaDaoJDBC;
+import domain.PersonaDTO;
+
 import java.sql.*;
+import java.util.List;
 
 
 public class ManejoPersonas {
@@ -18,20 +21,11 @@ public class ManejoPersonas {
                 conexion.setAutoCommit(false);
             }
 
-            PersonaJDBC personaJDBC = new PersonaJDBC(conexion);
+            PersonaDao personaDao = new PersonaDaoJDBC(conexion);
 
-            Persona cambioPersona = new Persona();
-            cambioPersona.setId_persona(2);
-            cambioPersona.setNombre("PETRICO MARIHUANERO");
-            cambioPersona.setApellido("PRESIDENTE NJDA");
-            cambioPersona.setEmail("petrosky2022@gmail.com");
-            cambioPersona.setTelefono("2022-2026");
-            personaJDBC.update(cambioPersona);
+            List<PersonaDTO> personas = personaDao.select();
 
-            Persona nuevaPersona = new Persona();
-            nuevaPersona.setNombre("Carlos");
-            nuevaPersona.setApellido("Ramirez");
-            personaJDBC.insert(nuevaPersona);
+            personas.forEach(System.out::println);
 
             conexion.commit();
             System.out.println("Se ha hecho el commit de la transaccion");
