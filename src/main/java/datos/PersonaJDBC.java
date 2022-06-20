@@ -73,7 +73,7 @@ public class PersonaJDBC {
             stmt.setString(3, persona.getEmail());
             stmt.setString(4, persona.getTelefono());
 
-            System.out.println("ejecutando query:" + SQL_INSERT);
+            System.out.println("Ejecutando query:" + SQL_INSERT);
             rows = stmt.executeUpdate();
             System.out.println("Registros afectados:" + rows);
         } finally {
