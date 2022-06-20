@@ -11,22 +11,7 @@ import java.util.List;
 public class ManejoUsuarios {
     public static void main(String[] args) {
         UsuarioDaoJDBC usuarioDaoJdbc = new UsuarioDaoJDBC();
-        
-/*        //Ejecutando el listado de usuarios
-        List<UsuarioDTO> usuarios = usuarioDaoJdbc.select();
-        for(UsuarioDTO usuario: usuarios){
-            System.out.println("UsuarioDTO:" + usuario);
-        }
-        
-        //Insertamos un nuevo usuario
-//        UsuarioDTO usuario = new UsuarioDTO("carlos.juarez", "123");
-//        usuarioDaoJdbc.insert(usuario);
 
-        //Modificamos un usuario existente
-//        UsuarioDTO usuario = new UsuarioDTO(3, "carlos.juarez","456");
-//        usuarioDaoJdbc.update(usuario);
-
-        usuarioDaoJdbc.delete(new UsuarioDTO(3));*/
 
         Connection conexion = null;
 
