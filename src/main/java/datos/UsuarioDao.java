@@ -14,5 +14,4 @@ public interface UsuarioDao {
     public int update(UsuarioDTO usuario) throws SQLException;
 
     public int delete(UsuarioDTO usuario) throws SQLException;
-
 }

@@ -1,7 +1,6 @@
 package domain;
 
 public class PersonaDTO {
-    
     private int id_persona;
     private String nombre;
     private String apellido;
@@ -52,6 +51,4 @@ public class PersonaDTO {
     public String toString() {
         return "PersonaDTO{" + "id_persona=" + id_persona + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + '}';
     }
-    
-    
 }
