@@ -4,7 +4,6 @@ public class UsuarioDTO {
     private int id_usuario;
     private String username;
     private String password;
-
     public UsuarioDTO() {
     }
 
@@ -52,6 +51,5 @@ public class UsuarioDTO {
     public String toString() {
         return "UsuarioDTO{" + "id_usuario=" + id_usuario + ", username=" + username + ", password=" + password + '}';
     }
-    
-    
+
 }

@@ -1,5 +1,4 @@
 package datos;
-
 import domain.UsuarioDTO;
 
 import java.sql.*;
@@ -19,7 +18,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
     public UsuarioDaoJDBC() {
 
     }
-
     public UsuarioDaoJDBC(Connection conexionTransaccional) {
         this.conexionTransaccional = conexionTransaccional;
     }
@@ -56,7 +54,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
                 Conexion.close(conn);
             }
         }
-        
         return usuarioDTOS;
     }
     
@@ -132,7 +129,6 @@ public class UsuarioDaoJDBC implements UsuarioDao {
                 Conexion.close(conn);
             }
         }
-        
         return rows;
     }
 }
