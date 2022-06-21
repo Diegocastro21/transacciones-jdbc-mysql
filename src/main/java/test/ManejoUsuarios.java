@@ -10,9 +10,6 @@ import java.util.List;
 
 public class ManejoUsuarios {
     public static void main(String[] args) {
-        UsuarioDaoJDBC usuarioDaoJdbc = new UsuarioDaoJDBC();
-
-
         Connection conexion = null;
 
         try {

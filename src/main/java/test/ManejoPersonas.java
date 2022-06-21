@@ -1,5 +1,4 @@
 package test;
-
 import datos.Conexion;
 import datos.PersonaDao;
 import datos.PersonaDaoJDBC;
@@ -7,7 +6,6 @@ import domain.PersonaDTO;
 
 import java.sql.*;
 import java.util.List;
-
 
 public class ManejoPersonas {
 
